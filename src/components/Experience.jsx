@@ -65,13 +65,10 @@ export const Experience = ({ client }) => {
           <IslandCollision 
            position={[20, 4, 10]}
           />
+       
           <Beast
-           scale={0.1}
-           rotation={[0, -Math.PI / 2, 0]}
-           position={[120, 0, 20]}/>
-          <Beast
-           scale={0.1}
-           position={[-120, 0, 20]}/>
+           scale={1}
+           position={[-520, 0, 20]}/>
     
           <Dock
            position={[17, 0, 10]}

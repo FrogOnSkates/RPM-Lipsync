@@ -6,8 +6,8 @@ import { useKeyboardControls } from '@react-three/drei';
 import { CuboidCollider, RigidBody, useRapier } from '@react-three/rapier';
 import { Ship } from '../models/Ship';
 
-const SPEED = 3;
-const SPRINT_SPEED = 20;
+const SPEED = 10;
+const SPRINT_SPEED = 200;
 const ROTATION_SPEED = 0.01;
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
