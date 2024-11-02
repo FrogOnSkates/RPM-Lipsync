@@ -4,18 +4,19 @@ import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useKeyboardControls } from '@react-three/drei';
 import { CapsuleCollider, RigidBody, useRapier } from '@react-three/rapier';
+import { Ship } from "../models/Ship";
 
-const SPEED = 1.75;
-const SPRINT_SPEED = 3;
+const SPEED = 3;
+const SPRINT_SPEED = 5;
 const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
 
-export function Player({ lerp = THREE.MathUtils.lerp }) {
+export function Player({ lerp = THREE.MathUtils.lerp, onCollision }) {
   const rapier = useRapier();
   const ref = useRef(null);
   const [, get] = useKeyboardControls();
-  // Use the react-three/fiber useFrame function
+
   useFrame((state) => {
     const { forward, backward, left, right, sprint, jump } = get();
     const velocity = ref.current?.linvel();
@@ -47,17 +48,30 @@ export function Player({ lerp = THREE.MathUtils.lerp }) {
 
   return (
     <>
-      <RigidBody
-        canSleep={false}
-        ref={ref}
-        colliders={false}
-        mass={1}
-        type="dynamic"
-        position={[0, 2, 3]}
-        enabledRotations={[false, false, false]}
-      >
-        <CapsuleCollider args={[1, 0.2]} />
-      </RigidBody>
+    <RigidBody
+      canSleep={false}
+      ref={ref}
+      colliders={false}
+      mass={1}
+      type="dynamic"
+      position={[0, 2, 3]}
+      enabledRotations={[false, false, false]}
+      onCollisionEnter={(event) => {
+        console.log("Collision detected with:", event.colliderObject?.name);
+        if (event.colliderObject?.name === 'IslandCollision' && onCollision) {
+          console.log("Switching camera perspective due to collision");
+          onCollision(); // Trigger camera toggle on collision with IslandCollision
+        }
+      }}
+      
+    >
+      <CapsuleCollider args={[1, 0.2]} sensor={false} />
+    </RigidBody>
+    <Ship 
+    scale={0.35}
+    position={[4, -2.5, 16]}
+    />
     </>
+     
   );
 }

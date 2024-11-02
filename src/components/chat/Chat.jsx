@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import ChatBubblev1 from "./ChatBubblev1";
+import ChatBubblev2 from "./ChatBubbleV2";
 import ChatHistory from "./ChatHistory";
 import reset from "../../assets/reset.png";
 import "../../index.css";
@@ -226,12 +227,26 @@ const ChatBubble = (props) => {
           userName={client?.userName ? client.userName : "User"}
         ></ChatHistory>
       )}
-      <ChatBubblev1
+      {/* <ChatBubblev1
         npcText={client?.npcText}
         userText={client?.userText}
         messages={messages}
         keyPressed={client?.keyPressed}
-      ></ChatBubblev1>
+      ></ChatBubblev1> */}
+
+      <ChatBubblev2
+        userText={client?.userText}
+        npcText={client?.npcText}
+        messages={client?.messages}
+        userInput={userInput}
+        chatHistory={history}
+        keyPressed={client?.keyPressed}
+        setEnter={client?.setEnter}
+        npcName={client?.npcName}
+        userName={client?.userName}
+      >
+      </ChatBubblev2>
+    
     </section>
   );
 };

@@ -5,10 +5,9 @@ import { useConvaiClient } from './hooks/useConvaiClient';
 import ChatBubble from './components/chat/Chat';
 
 function App() {
-  /**
-   * Add apikey and character id here
-   */
-  const { client } = useConvaiClient('characterId', 'apikey');
+  const convaiApiKey = '835026b610f830ce984c18e63e3a8e5d';
+  const characterId = '40e8c568-8eba-11ef-b3fe-42010a7be011';
+  const { client } = useConvaiClient(characterId, convaiApiKey);
   return (
     <>
       <KeyboardControls
@@ -19,6 +18,9 @@ function App() {
           { name: 'right', keys: ['ArrowRight', 'd', 'D'] },
           { name: 'sprint', keys: ['Shift'] },
           { name: 'jump', keys: ['Space'] },
+          { name: 'rotateRight', keys: ['e', 'E'] },
+          { name: 'rotateLeft', keys: ['q', 'Q'] },
+
         ]}
       >
         <Loader />
@@ -27,7 +29,7 @@ function App() {
           shadows
           camera={{
             position: [0, 0.8, 3],
-            fov: 75,
+            fov: 90,
           }}
         >
           <Experience client={client} />
